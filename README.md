@@ -7,10 +7,10 @@
 	- Prequestes. 
 	- Installation. 
 3.  Add the time function to your app.
-
+4. Unit testing. 
 
 ## About Lab:
-This lab is mainly creating web application using python and deploy it on AWS instance. The application function is to show the current time and date in Moscow.
+This lab is mainly creating web application using python and deploy it on AWS instance. The application function is to show the current time and date in Moscow. You can view the live application throught the following link: [ec2-18-117-114-7.us-east-2.compute.amazonaws.com](http://ec2-18-117-114-7.us-east-2.compute.amazonaws.com "ec2-18-117-114-7.us-east-2.compute.amazonaws.com") .
 
 ## Getting Started: 
 ### Prequestes :
@@ -87,3 +87,11 @@ WSGIScriptAlias / /var/www/html/flaskapp/flaskapp.wsgi
 
 ## Add the time function to your app
 You can add the time function to your app by simply replacing your flaskapp.py file with the file already pre made in the rebo.
+
+## Test that the time is refreshing using unittesting
+We need to make sure that everytime we get the time it's different than the previous one. This why the time is actually updating and refreshing each time you refresh the application. Follow the next steps in order to establish  a test. 
+1. Add the file named unitest.py in your app folder.
+2. Install unitest module.
+`sudo apt-get install -y python-unittest2`
+2. Run unitest.py using python3.
+
