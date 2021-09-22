@@ -126,6 +126,7 @@ pytz
 datetime
 2- Create docker file named Dockerfile and add the following conent.
 
+
 # build and image starting with pythom 3.8 which is the version needed for our app
 FROM python:3.8-slim-buster
 # set the working directory
