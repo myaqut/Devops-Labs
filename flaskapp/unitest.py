@@ -4,7 +4,7 @@ import time
 
 class TestStringMethods(unittest.TestCase):
     #check if the time is refreshing by taking time and then taking it again after 5 seconds delay
-    def check_refresh(self):
+    def test_check_refresh(self):
         #get time for first time
         value1 = flaskapp.current_time()
         #delay for 5 seconds
