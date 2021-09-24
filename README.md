@@ -125,7 +125,7 @@ you can find the required steps for both linux and windows on the following [lin
 ##### Docker Linter:
 For this repo I used vscode and installed docker extenstion as [Linter](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker "Linter") for formatting.
 
-### Getting Started : 
+### Deploy Locally  :
 
 1- Create new folder and add your flaskapp.py file inside that folder. 
 2- Create new file inside the same folder called requirements.txt in order to add the modules and dependencies required for the application.
@@ -151,7 +151,7 @@ For this repo I used vscode and installed docker extenstion as [Linter](https://
     COPY . .
     #set the default command for the container to flask run 
     CMD ["flask", "run"]
-    
+	
 4- Add docker-compose.yml file in order to define the running services for the container.
 
     version: "3.9"
@@ -167,3 +167,11 @@ For this repo I used vscode and installed docker extenstion as [Linter](https://
 ` docker-compose up`
 
 6- Open your browser and type http://localhost:5000/. You should see the time of moscow displayed on your browser screen.
+
+
+##Dockerhub Image :
+1-  Download the image from dockerhub using the following command.
+`docker pull yaqot/flaskapp_web:imagev1`
+2- Run the image downloaded previously using the following command.
+`docker run -p 5000:5000 flaskapp_web`
+
