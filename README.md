@@ -1,5 +1,5 @@
 # Lab1
-![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=feature-1)
+![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=workflow)
 
 **Table of Contents**
 
