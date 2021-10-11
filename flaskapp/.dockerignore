@@ -1,0 +1,7 @@
+# comment
+*/__pycache__*
+*/.github*
+*/*.md*
+*/*/temp*
+index.html?
+unitest.py?
