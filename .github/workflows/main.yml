@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name : unitest
+      - name : Unitest
       - run : python3 ./flaskapp/unitest.py
       
       - name: Set up Docker Buildx
