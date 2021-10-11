@@ -59,6 +59,3 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
         
-      - name : Unitest
-      - run : python3 ./flaskapp/unitest.py
-
