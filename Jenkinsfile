@@ -1,12 +1,11 @@
 pipeline {
-    agent any
+  agent { docker { image 'python:3.8' } }
 
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
-            sh'apt-get update'
-            sh'apt-get install python3'
+            sh'pip install -r ./flaskapp/requirements.txt'
             }
         }
         stage('Test') {
