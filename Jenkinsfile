@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-            sh'pip install -r ./flaskapp/requirements.txt'
+            sh'python3 ./flaskapp/flaskapp.py'
             }
         }
         stage('Test') {
