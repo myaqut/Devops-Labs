@@ -26,9 +26,6 @@ jobs:
       - name: Check Out Repo 
         uses: actions/checkout@v2
         
-      - name: unit test 
-      - run : python3 /flaskapp/unitest.py
-      
 
       - name: Cache Docker layers
         uses: actions/cache@v2
