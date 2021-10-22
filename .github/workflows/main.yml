@@ -19,24 +19,6 @@ jobs:
 
 
   # This workflow contains a single job called "build"
-  test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-    
-      - name: setup python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8' # install the python version needed
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: unit test 
-      - run : python3 /flaskapp/unitest.py
 
   # This workflow contains a single job called "build"
   build:
