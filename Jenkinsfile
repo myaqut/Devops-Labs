@@ -5,6 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sudo apt-get update
+                sudo apt-get install python3.8
             }
         }
         stage('Test') {
