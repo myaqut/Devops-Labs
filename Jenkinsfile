@@ -1,5 +1,5 @@
 stage('build') {
     steps {
-        sh 'python ./flaskapp/flaskapp.py'
+        sh 'python --version'
     }
 }
