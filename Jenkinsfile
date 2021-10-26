@@ -6,8 +6,8 @@ pipeline {
         stage('testing') {
             steps {
                 sh 'python --version'
-                sh 'cd ./flaskapp'
-                sh 'python3 unitest.py'
+
+                sh 'python3 ./flaskapp/unitest.py'
             }
         }
     }
