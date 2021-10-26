@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'python -m pip install --upgrade pip'
-                sh ' pip install -r ./flaskapp/requirements.txt '
+                sh 'pip install -r ./flaskapp/requirements.txt'
                 sh 'python3 ./flaskapp/unitest.py'
             }
         }
