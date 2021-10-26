@@ -6,7 +6,7 @@ pipeline {
         stage('testing') {
             steps {
                 sh 'python --version'
-
+                sh ' pip install -r ./flaskapp/requirements.txt '
                 sh 'python3 ./flaskapp/unitest.py'
             }
         }
