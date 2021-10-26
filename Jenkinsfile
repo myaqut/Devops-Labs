@@ -1,11 +1,13 @@
+
+
 pipeline {
-    agent any 
+    agent {
+        docker { image 'node:14-alpine' }
+    }
     stages {
-        stage('build') {
+        stage('Test') {
             steps {
-                sh 'echo "7amo" '
-                sh 'cd flaskapp'
-                sh 'python3 --version'
+                sh 'node --version'
             }
         }
     }
