@@ -4,7 +4,7 @@ FROM python:3.9.6-alpine3.14
 ENV FLASK_APP=flaskapp.py
 ENV FLASK_RUN_HOST=0.0.0.0
 #copy and install the depndeincies in the file requirments.txt
-COPY requirements.txt requirements.txt
+COPY /flaskapp/requirements.txt requirements.txt
 RUN pip install  --no-cache-dir -r requirements.txt &&\
     adduser --disabled-password flaskapp -s /bin/bash -h /home/app
 # set the working directory
