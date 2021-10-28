@@ -15,6 +15,6 @@ USER flaskapp
 #set the port for the container to be 5000
 EXPOSE 5000
 #copy the current files to the file 
-COPY flaskapp.py flaskapp.py
+COPY flaskapp.py /
 #set the default command for the container to flask run 
 CMD ["flask", "run"]
