@@ -4,7 +4,7 @@ FROM python:3.9.6-alpine3.14
 ENV FLASK_APP=flaskapp.py
 ENV FLASK_RUN_HOST=0.0.0.0
 #copy and install the depndeincies in the file requirments.txt
-COPY /flaskapp/requirements.txt requirements.txt
+COPY /requirements.txt requirements.txt
 RUN pip install  --no-cache-dir -r requirements.txt &&\
     adduser --disabled-password flaskapp -s /bin/bash -h /home/app
 # set the working directory
@@ -15,6 +15,6 @@ USER flaskapp
 #set the port for the container to be 5000
 EXPOSE 5000
 #copy the current files to the file 
-COPY /flaskapp/flaskapp.py  /app
+COPY /flaskapp.py flaskapp.py
 #set the default command for the container to flask run 
 CMD ["flask", "run"]
