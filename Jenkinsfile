@@ -1,6 +1,12 @@
 pipeline {
     agent { docker { image 'python:3.9.6-alpine3.14' } }
     stages {
+        stage('clone'){
+            
+            
+            git 'https://github.com/myaqut/devops.git'
+            
+        }
         stage('testing') {
             steps {
                 sh 'python -m pip install --upgrade pip'
