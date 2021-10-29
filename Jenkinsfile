@@ -8,8 +8,19 @@ pipeline {
 git branch: 'main', credentialsId: 'f707ba26-5c29-4630-a9a4-32b64edd7d10', url: 'https://github.com/myaqut/devops.git'
             }
         }
-            
-            
+        stage('Building our image') { 
+
+            steps { 
+
+                script { 
+
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+
+                }
+
+            } 
+
+        }
          stage('testing') {
             steps {
                 sh 'python -m pip install --upgrade pip'
