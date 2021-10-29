@@ -1,8 +1,9 @@
 pipeline {
-    agent { label 'linux' }
+    agent { docker { image 'alpine/git' } }
     stages {
         stage('clone'){
             steps{
+            sh 'sudo apt install git-all'
             git 'https://github.com/myaqut/devops.git'
             }
         }
@@ -15,4 +16,3 @@ pipeline {
         }
     }
 }
-
