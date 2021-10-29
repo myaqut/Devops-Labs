@@ -1,5 +1,12 @@
 pipeline {
-    agent { label "master" }    
+    
+    	environment {
+		DOCKERHUB_CREDENTIALS=credentials('eaa35e88-ec2e-4f4d-9864-f802ef697185')
+	}
+
+
+    agent { label "master" }  
+    
     
     stages{
         stage('clone'){
@@ -12,7 +19,7 @@ git branch: 'main', credentialsId: 'f707ba26-5c29-4630-a9a4-32b64edd7d10', url: 
 
             steps { 
                 sh """
-                docker build -t first_one .
+                docker build -t yaqot/timeappjenkins:latest .
                 
                 """
 
@@ -28,6 +35,25 @@ git branch: 'main', credentialsId: 'f707ba26-5c29-4630-a9a4-32b64edd7d10', url: 
                 sh 'python3 ./flaskapp/unitest.py'
             }
         }
+        
+        stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		
+		
+		stage('Push') {
+
+			steps {
+				sh 'docker push yaqot/timeappjenkins:latest'
+			}
+		}
+
+
+        
+        
         }
     
 }
