@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'alpine/git' } }
+    agent any
     stages {
         stage('clone'){
             steps{
