@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('clone'){
             steps{
-            
+            sh 'sudo apt install git-all'
             git 'https://github.com/myaqut/devops.git'
             }
         }
