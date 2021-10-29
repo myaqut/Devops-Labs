@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('clone'){
             steps{
-            git 'https://github.com/myaqut/devops.git'
+           git credentialsId: 'myaqut', url: 'https://github.com/myaqut/devops.git'
+
             }
         }
         stage('testing') {
