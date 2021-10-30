@@ -30,8 +30,8 @@ The main purpose of having unit tests is to make sure that everything is working
 ###4- Tests Should Be Trustworthy: 
 Make sure that your tests only fail when actually something wrong happens. Monitor your tests results many times and make sure that they provide accurate results 100% as you should rely on them before deploying your code. 
 
-###5- Isolate Your Tests
+###5- Isolate Your Tests:
 Unit tests should be runnable on any machine. You can provide your unit tests dependencies in your CI workflow. Also make sure that your unit tests are not affecting each other’s in order to get accurate results.
 
-###6- Unit Tests Should Verify a Single-Use Case
+###6- Unit Tests Should Verify a Single-Use Case:
 Every test should only cover 1 scenario or one use case. This structure helps with making your tests simple and more understandable. It also helps the developer debugging their code in case something wrong happened.
