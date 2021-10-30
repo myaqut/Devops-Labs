@@ -174,3 +174,201 @@ We need to make sure that everytime we get the time it's different than the prev
 `python3 ./flaskapp/unitest.py `
 
 
+# Git Actions CI: 
+
+**Table of Contents**
+
+1. About Lab .
+2. Steps :
+
+## About Lab:
+This lab is mainly setup Git actions CI. We are going to create CI workflow using Git actions. Our workflow is automatically working on "push" event to the main branch. The workflow discribed below contains the following steps :
+	1- run unit tests.
+	2- build docker image.
+	3- use build cache.
+	4- push to docker hub. 
+	5- add workflow status badge.
+
+## Steps:
+#### 1- Create new workflow.
+- Login to your github account.
+- Click actions 
+- Choose create new workflow 
+- Choose Jekyll template. A template is going to be created for you with the following content : 
+
+````
+name: Jekyll site CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the site in the jekyll/builder container
+      run: |
+        docker run \
+        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+        jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future"
+
+````
+- change the workflow to CI to docker hub. make it only get triggered on push to the main branch. the file content after the previous changes is going to be the following : 
+
+```
+# This is a basic workflow to help you get started with Actions
+
+name: CI to Docker Hub
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   
+  CI:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      
+      - name: Checkout
+        uses: actions/checkout@v2
+
+```
+
+#### 2- Run Unit Test.
+- Install the required dependencies in order to run the unit test file.
+- Run the unit test file using pyton3.
+- Your file should look like the following after adding these steps:
+
+```
+# This is a basic workflow to help you get started with Actions
+
+name: CI to Docker Hub
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   
+  CI:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      
+      - name: install python 3 
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./flaskapp/requirements.txt
+      - name: Run tests with pytest
+        run: python3 ./flaskapp/unitest.py 
+
+```
+
+#### 3- Run Unit Test.
+- Build docker image.
+- Login to your docker hub account .
+- Push the built image to your dockerhub account.
+Your file should look liek the following :
+
+```
+# This is a basic workflow to help you get started with Actions
+
+name: CI to Docker Hub
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+   
+  CI:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      
+      - name: install python 3 
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./flaskapp/requirements.txt
+      - name: Run tests with pytest
+        run: python3 ./flaskapp/unitest.py 
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timeappgitworkflow:latest
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+```
+#### 4- Add your secret key github.
+- Login to your dockerhub account
+- Go to account settings and then security 
+- Create new access token and save it
+- Go to your github account
+- Go to settings under your repo
+- Go to secrets and add new one with the name "DOCKER_HUB_ACCESS_TOKEN"
+- Add your docker hub username with the name " DOCKER_HUB_USERNAME "
+
+#### 5- Run Your workflow.
+- Do  a push event to your repo and check the status of your workflow and make sure that all the steps are excuteted.
+
