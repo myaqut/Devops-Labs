@@ -89,14 +89,6 @@ WSGIScriptAlias / /var/www/html/flaskapp/flaskapp.wsgi
 ## Add the time function to your app
 You can add the time function to your app by simply replacing your flaskapp.py file with the file already pre made in the rebo.
 
-## Test that the time is refreshing using unittesting
-We need to make sure that everytime we get the time it's different than the previous one. This why the time is actually updating and refreshing each time you refresh the application. Follow the next steps in order to establish  a test. 
-1. Add the file named unitest.py in your app folder.
-2. Install unitest module.
-`sudo apt-get install -y python-unittest2`
-2. Run unitest.py using python3.
-
-
 # Deploying Flask App Using Docker
 
 
