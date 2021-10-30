@@ -165,7 +165,7 @@ For this repo I used vscode and installed docker extenstion as [Linter](https://
 
 # Unit Tests: 
 
-## Test that the time is refreshing using unittesting
+## Test that the time is refreshing using unit testing
 We need to make sure that everytime we get the time it's different than the previous one. This why the time is actually updating and refreshing each time you refresh the application. Follow the next steps in order to establish the test. In case the application doesn't refresh the time, the test is going to fail.
 1. Add the file named unitest.py in your app folder.
 2. Install unitest module.
