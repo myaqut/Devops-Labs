@@ -1,5 +1,5 @@
 # Lab1
-![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=workflow)
+![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=main)
 
 **Table of Contents**
 
@@ -371,4 +371,10 @@ jobs:
 
 #### 5- Run Your workflow.
 - Do  a push event to your repo and check the status of your workflow and make sure that all the steps are excuteted.
+
+### 6- Add Workflow Status Badge.
+- Add the following line to your repo 
+```
+![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=workflow)
+```
 
