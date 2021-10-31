@@ -12,7 +12,7 @@ class TestStringMethods(unittest.TestCase):
         #get time for the second time
         value2 = flaskapp.current_time()
         #test if the the two values are not the same.
-        self.assertNotEqual(value1,value2,"not refreshing, time taken after 5 seconds is the same as before the 5 seconds delay")
+        self.assertNotEqual(value1,value1,"not refreshing, time taken after 5 seconds is the same as before the 5 seconds delay")
         print ("time refresh is correct")
 
 
