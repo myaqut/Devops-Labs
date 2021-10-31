@@ -378,3 +378,123 @@ jobs:
 ![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=workflow)
 ```
 
+
+# Jenkins CI 
+The following steps are for creating CI workflow on jenkins using Multibranch Pipeline.
+## Steps: 
+
+#### 1. Pull Jenkins Docker Image
+- Use the following command to pull Jenkins image from docker to your machine.
+`docker pull jenkinsci/blueocean`
+- Create a new directory to save jenkins password and run the docker image using the following command 
+```
+mkdir jenkins && cd jenkins docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -u 0 -v `pwd`:/var/jenkins_home jenkinsci/blueocean
+```
+
+#### 2. Configure Jenkins User
+- Run localhost:8080 in your browser.
+- Copy the password key printed on your terminal after running the docker image and enter it.
+- Create a username and password for you to login with in the future.
+#### 3. Create New Multi Branch Job
+- Create new job and choose multi branch pipeline.
+- Copy and paste your git repo url to branch resource.
+- On behavior field, set to discover branch, use use filter by name and type "main".
+-  
+#### 4. Create Credentials For Github
+- Add your email and password for your github.
+- Select the credentials you just added for your git repo source.
+#### 5. Scan Multiple Branch Now
+- Check the logs and make sure that it reads your repo
+
+#### 6. Create Jenkins File
+- Create file in your repo with name "Jenkinsfile".
+- Add the following content to the file.
+```
+pipeline {
+
+environment {
+
+DOCKERHUB_CREDENTIALS=credentials('docker-creds-id')
+
+}
+
+agent { label "master" }
+
+stages{
+
+stage('clone'){
+
+steps{
+
+git branch: 'main', credentialsId: 'f707ba26-5c29-4630-a9a4-32b64edd7d10', url: 'https://github.com/myaqut/devops.git'
+
+}
+
+}
+
+stage('testing') {
+
+agent { docker { image 'python:3.9.6-alpine3.14' } }
+
+steps {
+
+sh 'python -m pip install --upgrade pip'
+
+sh 'pip install -r ./flaskapp/requirements.txt'
+
+sh 'python3 ./flaskapp/unitest.py'
+
+}
+
+}
+
+stage('Building our image') {
+
+steps {
+
+sh """
+
+docker build -t yaqot/timeappjenkins:latest .
+
+"""
+
+}
+
+}
+
+stage('Login') {
+
+steps {
+
+sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+
+}
+
+}
+
+stage('Push') {
+
+steps {
+
+sh 'docker push yaqot/timeappjenkins:latest'
+
+}
+
+}
+
+}
+
+}
+```
+
+- Scan your branch again and make sure that the jenkinsfile started.
+
+#### 7. Add Dockerhub Creds
+- Add your dockehub username and secret key in the credentials.
+- Add dockerhub creds ID in your jenkinsfile instead of the placeholder.
+
+#### 8. Run From Dockerhub
+- Run your job again.
+- Make sure that all stages are passed.
+- Pull the image from dockerhub and run it on your machine.
+
