@@ -182,7 +182,7 @@ We need to make sure that everytime we get the time it's different than the prev
 2. Steps :
 
 ## About Lab:
-This lab is mainly setup Git actions CI. We are going to create CI workflow using Git actions. Our workflow is automatically working on "push" event to the main branch. The workflow discribed below contains the following steps :
+This lab is mainly setup Git actions CI. We are going to create CI workflow using Git actions. Our workflow is automatically working on "push" event to the main branch. The workflow described below contains the following steps :
 	1- run unit tests.
 	2- build docker image.
 	3- use build cache.
@@ -293,7 +293,7 @@ jobs:
 
 ```
 
-#### 3- Run Unit Test.
+#### 3- Build Docker Image and Push To Dockerhub.
 - Build docker image.
 - Login to your docker hub account .
 - Push the built image to your dockerhub account.
@@ -370,7 +370,7 @@ jobs:
 - Add your docker hub username with the name " DOCKER_HUB_USERNAME "
 
 #### 5- Run Your workflow.
-- Do  a push event to your repo and check the status of your workflow and make sure that all the steps are excuteted.
+- Do a push event to your repo and check the status of your workflow and make sure that all the steps are executed.
 
 ### 6- Add Workflow Status Badge.
 - Add the following line to your repo 
