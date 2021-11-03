@@ -495,7 +495,8 @@ sh 'docker push yaqot/timeappjenkins:latest'
 
 #### 8. Expose Docker Service File To Jenkins.
 - Run your Jenkins Using the following command : 
-``` docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -u 0 -v `pwd`:/var/jenkins_home  -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
+``` 
+docker run --rm --name jenkins -p 8080:8080 -p 50000:50000 -u 0 -v `pwd`:/var/jenkins_home  -v /var/run/docker.sock:/var/run/docker.sock jenkinsci/blueocean
 ```
 #### 8. Run From Dockerhub
 - Run your job again.
