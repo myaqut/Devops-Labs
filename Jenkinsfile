@@ -6,7 +6,6 @@ pipeline {
     agent { label 'master' }
 
     stages {
-
         stage('Clone and test') {
             agent { docker { image 'python:3.9.6-alpine3.14' } }
             steps {
@@ -22,7 +21,6 @@ pipeline {
             steps {
                 sh '''
                 docker build -t yaqot/timeappjenkins:latest .
-
                 '''
             }
         }
@@ -32,10 +30,7 @@ pipeline {
                 sh'''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                     docker push yaqot/timeappjenkins:latest
                     '''
-
-
             }
         }
-
     }
 }
