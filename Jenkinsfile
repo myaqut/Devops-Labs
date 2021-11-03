@@ -37,10 +37,5 @@ pipeline {
             }
         }
 
-        stage('Push') {
-            steps {
-            }
-        }
-
     }
 }
