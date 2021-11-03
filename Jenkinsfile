@@ -1,6 +1,6 @@
 pipeline {
         environment {
-        DOCKERHUB_CREDENTIALS = credentials('eaa35e88-ec2e-4f4d-9864-f802ef697185')
+        DOCKERHUB_CREDENTIALS = credentials('docher-hub-secret')
         }
 
     agent { label 'master' }
