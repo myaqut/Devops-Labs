@@ -510,9 +510,13 @@ The following steps are for creating infrastructure using AWS EC2.
 
 #### 1. Install Terraform
 - Use the following commands to install Terraform on your Ubuntu/Debian machine. If you are using different OS please go to the following [link](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started).
+
 `sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl`
+
 `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
+
 `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
+
 `sudo apt-get update && sudo apt-get install terraform`
 
 - Verify the installation by adding the following command to your terminal.
