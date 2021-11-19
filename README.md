@@ -186,4 +186,3 @@ Name = var.instance_name
 - Finally type ``terraform apply`` 
 - For more details checkout the official [documentation](https://learn.hashicorp.com/tutorials/terraform/aws-remote?in=terraform/aws-get-started).
 
-
