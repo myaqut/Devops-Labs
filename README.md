@@ -697,3 +697,21 @@ Name = var.instance_name
 - For more details checkout the official [documentation](https://learn.hashicorp.com/tutorials/terraform/aws-remote?in=terraform/aws-get-started).
 
 
+
+# Vagrant Virtual Machine Using VirtualBox
+### Perquisites : 
+1. Install VirtualBox on your Machine. 
+	- Go to the following [link](https://www.virtualbox.org/wiki/Downloads).
+2. Install Vagrant :
+	- Go to the following [link](https://www.vagrantup.com/downloads).
+### Steps: 
+1. Create new Directory for your vagrant files.
+2. Create new vagrant example file using the following command.
+``vagrant init``
+3. Edit the virtual machine box name to have the following value.
+``config.vm.box = "ubuntu/trusty64"``
+4. Power up Vagrant by typing the following command in the same directory where you have the vagrantfiles.
+`` vagrant up ``
+5. Wait till vagrant download the image we added previously.
+6. You can ssh your freshly created virtual machine by typing 
+``ssh vagrant``
