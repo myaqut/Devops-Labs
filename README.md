@@ -715,3 +715,21 @@ Name = var.instance_name
 5. Wait till vagrant download the image we added previously.
 6. You can ssh your freshly created virtual machine by typing 
 ``ssh vagrant``
+
+
+# Ansible Playbook For Docker
+### Perquisites : 
+1. Install Ansible on your Machine. 
+	- Go to the following [link](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+### Steps: 
+1. Create .
+2. Create new vagrant example file using the following command.
+``vagrant init``
+3. Edit the virtual machine box name to have the following value.
+``config.vm.box = "ubuntu/trusty64"``
+4. Power up Vagrant by typing the following command in the same directory where you have the vagrantfiles.
+`` vagrant up ``
+5. Wait till vagrant download the image we added previously.
+6. You can ssh your freshly created virtual machine by typing 
+``ssh vagrant``
+
