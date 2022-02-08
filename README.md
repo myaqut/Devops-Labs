@@ -715,3 +715,100 @@ Name = var.instance_name
 5. Wait till vagrant download the image we added previously.
 6. You can ssh your freshly created virtual machine by typing 
 ``ssh vagrant``
+
+
+# Ansible Playbook For Docker
+### Perquisites : 
+1. Install Ansible on your Machine. 
+	- Go to the following [link](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+
+
+1.  Create new folder in your repo called ansible .
+2.  Create new file called " inventory" and place your machine IP address on the first line.   
+3.  Create new file called "ansible.cfg" with the following content : 
+```
+[defaults]
+
+#assigning inventory file for the machine address
+
+inventory = inventory
+
+#the private key file directory
+
+private_key_file = "your machine private key directory"
+ 
+#the user to use to connect with the aws machine
+
+remote_user = "machine username"
+```
+4. Check your machine connection by typing ``ansible all -m ping`` in your terminal.
+5. Create new folder with the name "playbooks" and create new yml file for example "playbook.yml".
+6. Add the following content to your yml file which installs docker to the machine you will be connecting to. note : check the playbook.yml file for the correct indentation.
+```
+- hosts: all
+
+become: true
+
+  
+
+tasks:
+
+- name: Install packages and update using apt
+
+apt:
+
+pkg:
+
+- ca-certificates
+
+- curl
+
+- gnupg
+
+- lsb-release
+
+state : latest
+
+update_cache : yes
+
+  
+
+- name: Add Docker GPG apt Key
+
+apt_key:
+
+url: https://download.docker.com/linux/ubuntu/gpg
+
+state: present
+
+  
+
+- name: Add Docker Repository
+
+apt_repository:
+
+repo: deb https://download.docker.com/linux/ubuntu bionic stable
+
+state: present
+
+  
+
+- name: Update apt and install engine
+
+apt:
+
+update_cache : yes
+
+pkg :
+
+- docker-ce
+
+- docker-ce-cli
+
+- containerd.io
+
+state : latest
+```
+7. Type the following command in your ansible folder and make sure that all tasks are executed successfully. 
+` ansible-playbook playbooks/playbook.yml `
+
