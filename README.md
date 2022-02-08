@@ -743,7 +743,7 @@ remote_user = "machine username"
 ```
 4. Check your machine connection by typing ``ansible all -m ping`` in your terminal.
 5. Create new folder with the name "playbooks" and create new yml file for example "playbook.yml".
-6. Add the following content to your yml file which installs docker to the machine you will be connecting to. 
+6. Add the following content to your yml file which installs docker to the machine you will be connecting to. note : check the playbook.yml file for the correct indentation.
 ```
 - hosts: all
 
