@@ -1,0 +1,28 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Install packages and update using apt
+      apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: latest
+        update_cache: 'yes'
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: 'https://download.docker.com/linux/ubuntu/gpg'
+        state: present
+    - name: Add Docker Repository
+      apt_repository:
+        repo: 'deb https://download.docker.com/linux/ubuntu bionic stable'
+        state: present
+    - name: Update apt and install engine
+      apt:
+        update_cache: 'yes'
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: latest
