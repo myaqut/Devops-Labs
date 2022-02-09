@@ -722,6 +722,7 @@ Name = var.instance_name
 1. Install Ansible on your Machine. 
 	- Go to the following [link](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 
+### Steps : 
 
 1.  Create new folder in your repo called ansible .
 2.  Create new file called " inventory" and place your machine IP address on the first line.   
@@ -811,4 +812,5 @@ state : latest
 ```
 7. Type the following command in your ansible folder and make sure that all tasks are executed successfully. 
 ` ansible-playbook playbooks/playbook.yml `
-
+### Dynamic Inventory : 
+1- install boto using the following command ` pip3 install boto3 `
