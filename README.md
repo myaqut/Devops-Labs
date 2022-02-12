@@ -813,4 +813,43 @@ state : latest
 7. Type the following command in your ansible folder and make sure that all tasks are executed successfully. 
 ` ansible-playbook playbooks/playbook.yml `
 ### Dynamic Inventory : 
-1- install boto using the following command ` pip3 install boto3 `
+1- Make sure that the followings are installed on your machine ( boto3 - botocore ) :
+	- botocore install : `sudo apt-get install -y python3-botocore`.
+	- boto3 install : `pip3 install boto3` .
+2- Configure aws credentials settings on your machine for your ec2 machine using the following [steps](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config). 
+3- Make sure to add the credentials under 'ec2' profile using the following command . `aws configure --profile ec2` 
+4- Add the following line to your ansible.cfg file to enable aws inventory plugin. `enable_plugins = aws_ec2`
+5- Create new file with the name "aws_ec2.yaml" with the following content :
+```
+plugin: aws_ec2
+
+#aws profile credentials
+
+aws_profile: ec2
+
+#Machine region
+
+regions:
+
+- us-east-2
+
+#only get the machines with the tag machine_type and value ec2_manage
+
+include_filters:
+
+- 'tag:machine_type':
+
+- ec2_manage
+```
+6- Add the tag name "machine_type" with the value " ec2_manage" to your ec2 machine.
+7- Modify your ansible.cfg file with the following content :
+```
+[defaults]
+
+#assigning inventory file for the machine address
+
+inventory = aws_ec2.yaml
+
+enable_plugins = aws_ec2
+```
+8- Run the following command. `ansible-playbook playbooks/playbook.yml`
