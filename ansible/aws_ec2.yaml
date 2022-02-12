@@ -1,0 +1,10 @@
+plugin: aws_ec2
+#aws profile credentials
+aws_profile: ec2
+#Machine region
+regions:
+  - us-east-2
+#only get the machines with the tag machine_type and value ec2_manage
+include_filters:
+  - 'tag:machine_type':
+      - ec2_manage
