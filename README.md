@@ -818,8 +818,11 @@ state : latest
 	- botocore install : `sudo apt-get install -y python3-botocore`.
 	- boto3 install : `pip3 install boto3` .
 2- Configure aws credentials settings on your machine for your ec2 machine using the following [steps](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config). 
+
 3- Make sure to add the credentials under 'ec2' profile using the following command . `aws configure --profile ec2` 
+
 4- Add the following line to your ansible.cfg file to enable aws inventory plugin. `enable_plugins = aws_ec2`
+
 5- Create new file with the name "aws_ec2.yaml" with the following content :
 ```
 plugin: aws_ec2
@@ -878,6 +881,7 @@ ports:
 ``` 
 
 3. Your final file should look like this. note : check the original file inside playbooks folder for the correct indentation. 
+
 ```
 - hosts: all
 
