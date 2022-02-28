@@ -1,3 +1,4 @@
+
 # Lab1
 ![example workflow](https://github.com/myaqut/devops/actions/workflows/main.yml/badge.svg?branch=main)
 
@@ -853,3 +854,114 @@ inventory = aws_ec2.yaml
 enable_plugins = aws_ec2
 ```
 8- Run the following command. `ansible-playbook playbooks/playbook.yml`
+
+### Deploy Docker Using Ansible : 
+1- Install docker module from Ansible community using the following command `ansible-galaxy  collection  install  community.docker`. 
+2. Pull your docker image and deploy on your ec2 remote machine.
+
+```
+- name : pull image from dockerhub
+
+community.docker.docker_container:
+
+name: "app name" 
+
+image: "image url " 
+
+volumes:
+
+- /data
+
+ports:
+
+- "80:5000"
+``` 
+
+3. Your final file should look like this. note : check the original file inside playbooks folder for the correct indentation. 
+```
+- hosts: all
+
+become: true
+
+tasks:
+
+- name: Install packages and update using apt
+
+apt:
+
+pkg:
+
+- ca-certificates
+
+- python3-pip
+
+- curl
+
+- gnupg
+
+- lsb-release
+
+state: latest
+
+update_cache: 'yes'
+
+- name: Add Docker GPG apt Key
+
+apt_key:
+
+url: 'https://download.docker.com/linux/ubuntu/gpg'
+
+state: present
+
+- name: Add Docker Repository
+
+apt_repository:
+
+repo: 'deb https://download.docker.com/linux/ubuntu bionic stable'
+
+state: present
+
+- name: Update apt and install engine
+
+apt:
+
+update_cache: 'yes'
+
+pkg:
+
+- docker-ce
+
+- docker-ce-cli
+
+- containerd.io
+
+- python3-pip
+
+state: latest
+
+- name : install docker using pip
+
+pip :
+
+name : docker
+
+  
+
+- name : pull image from dockerhub
+
+community.docker.docker_container:
+
+name: timeapp
+
+image: yaqot/timeappgitworkflow
+
+volumes:
+
+- /data
+
+ports:
+
+- "80:5000"
+```
+
+
