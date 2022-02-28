@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  tasks :
+    - name : pull image from dockerhub
+      community.docker.docker_container:
+        name: timeapp
+        image: yaqot/timeappgitworkflow
+        volumes:
+         - /data
+        ports: 
+          - "80:5000"
+
+     

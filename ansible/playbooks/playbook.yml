@@ -5,6 +5,7 @@
       apt:
         pkg:
           - ca-certificates
+          - python3-pip
           - curl
           - gnupg
           - lsb-release
@@ -25,4 +26,18 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
+          - python3-pip
         state: latest
+    - name : install docker using pip
+      pip :
+        name : docker
+
+    - name : pull image from dockerhub
+      community.docker.docker_container:
+        name: timeapp
+        image: yaqot/timeappgitworkflow
+        volumes:
+         - /data
+        ports: 
+          - "80:5000"
+
