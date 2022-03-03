@@ -858,7 +858,7 @@ enable_plugins = aws_ec2
 ```
 8- Run the following command. `ansible-playbook playbooks/playbook.yml`
 
-### Deploy Docker Using Ansible : 
+#Deploy Docker Using Ansible : 
 1- Install docker module from Ansible community using the following command `ansible-galaxy  collection  install  community.docker`. 
 2. Pull your docker image and deploy on your ec2 remote machine.
 
