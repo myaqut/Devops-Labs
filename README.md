@@ -970,12 +970,12 @@ ports:
 
 
 ### Monitoring Using Prometheus and Grafana
-1- Create new yml file under the name docker-compose.yml.
-2- We will need to have the following installed : 
+1. Create new yml file under the name docker-compose.yml.
+2. We will need to have the following installed : 
 	- prometheus in order to get docker metrics.
 	- node exporter in order to expose the machine hardware resources.
 	- cadvisor in order to monitor the running docker containers.
-3- Add the following content to the yml file you just created. note: indentation is very important so it's recommended to copy the file in the following directory ( prometheus/docker-compose.yml).
+3. Add the following content to the yml file you just created. note: indentation is very important so it's recommended to copy the file in the following directory ( prometheus/docker-compose.yml).
 ```
 version: '3'
 
@@ -1072,7 +1072,7 @@ ports:
 - 6379:6379
 
 ```
-4- We need to edit prometheus configuration file under the directory (/etc/prometheus/prometheus.yml), in order to add grafana, cadvisor ,and node exporter to prometheus.
+4. We need to edit prometheus configuration file under the directory (/etc/prometheus/prometheus.yml), in order to add grafana, cadvisor ,and node exporter to prometheus.
 ```
 # my global config
 
@@ -1170,8 +1170,8 @@ static_configs:
 
 - targets: ['dockerip:8080']
 ```
-5- We need to configure docker to allow metric communication from docker. follow the steps in this [link](https://docs.docker.com/config/daemon/prometheus/).
-6- Run the following command inside the folder you have docker-compose.yml file. ``docker-compose run -d``.
-7- Open localhost:9090 for prometheus. You should see four targets ( prometheus, node exporter, cadvisor, and docker ).
-8- Open grafana to be able to visualize the data coming from prometheus and the set the data source to prometheus.
-9- You can import dashboards using json file to fully visualize the data. you can import this pre-made dashboard from this [link](https://grafana.com/grafana/dashboards/179).
+5. We need to configure docker to allow metric communication from docker. follow the steps in this [link](https://docs.docker.com/config/daemon/prometheus/).
+6. Run the following command inside the folder you have docker-compose.yml file. ``docker-compose run -d``.
+7. Open localhost:9090 for prometheus. You should see four targets ( prometheus, node exporter, cadvisor, and docker ).
+8. Open grafana to be able to visualize the data coming from prometheus and the set the data source to prometheus.
+9. You can import dashboards using json file to fully visualize the data. you can import this pre-made dashboard from this [link](https://grafana.com/grafana/dashboards/179).
