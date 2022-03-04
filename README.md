@@ -858,7 +858,7 @@ enable_plugins = aws_ec2
 ```
 8- Run the following command. `ansible-playbook playbooks/playbook.yml`
 
-### Deploy Docker Using Ansible : 
+# Deploy Docker Using Ansible : 
 1- Install docker module from Ansible community using the following command `ansible-galaxy  collection  install  community.docker`. 
 2. Pull your docker image and deploy on your ec2 remote machine.
 
@@ -969,3 +969,209 @@ ports:
 ```
 
 
+### Monitoring Using Prometheus and Grafana
+1. Create new yml file under the name docker-compose.yml.
+2. We will need to have the following installed : 
+	- prometheus in order to get docker metrics.
+	- node exporter in order to expose the machine hardware resources.
+	- cadvisor in order to monitor the running docker containers.
+3. Add the following content to the yml file you just created. note: indentation is very important so it's recommended to copy the file in the following directory ( prometheus/docker-compose.yml).
+```
+version: '3'
+
+volumes:
+
+prometheus-data:
+
+driver: local
+
+  
+
+services:
+
+#install and deploy prometheus
+
+prometheus:
+
+image: prom/prometheus:latest
+
+container_name: prometheus
+
+ports:
+
+- "9090:9090"
+
+volumes:
+
+- /etc/prometheus:/etc/prometheus
+
+- prometheus-data:/prometheus
+
+restart: unless-stopped
+
+command:
+
+- "--config.file=/etc/prometheus/prometheus.yml"
+
+#install and deploy node_exporter The Prometheus Node Exporter exposes a wide variety of hardware- and kernel-related metrics.
+
+node_exporter:
+
+image: quay.io/prometheus/node-exporter:latest
+
+container_name: node_exporter
+
+command:
+
+- '--path.rootfs=/host'
+
+network_mode: host
+
+pid: host
+
+restart: unless-stopped
+
+volumes:
+
+- '/:/host:ro,rslave'
+
+#install and deploy cadvisor, cadvisor allow us to see the containers running on the current machine
+
+cadvisor:
+
+image: gcr.io/cadvisor/cadvisor:latest
+
+container_name: cadvisor
+
+ports:
+
+- 8080:8080
+
+volumes:
+
+- /:/rootfs:ro
+
+- /var/run:/var/run:rw
+
+- /sys:/sys:ro
+
+- /var/lib/docker/:/var/lib/docker:ro
+
+depends_on:
+
+- redis
+
+redis:
+
+image: redis:latest
+
+container_name: redis
+
+ports:
+
+- 6379:6379
+
+```
+4. We need to edit prometheus configuration file under the directory (/etc/prometheus/prometheus.yml), in order to add grafana, cadvisor ,and node exporter to prometheus.
+```
+# my global config
+
+global:
+
+scrape_interval: 15s  # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+
+evaluation_interval: 15s  # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+# scrape_timeout is set to the global default (10s).
+
+  
+
+# Attach these labels to any time series or alerts when communicating with
+
+# external systems (federation, remote storage, Alertmanager).
+
+external_labels:
+
+monitor: 'codelab-monitor'
+
+  
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+
+rule_files:
+
+# - "first.rules"
+
+# - "second.rules"
+
+  
+
+# A scrape configuration containing exactly one endpoint to scrape:
+
+# Here it's Prometheus itself.
+
+scrape_configs:
+
+# The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+
+- job_name: 'prometheus'
+
+  
+
+# metrics_path defaults to '/metrics'
+
+# scheme defaults to 'http'.
+
+  
+
+static_configs:
+
+- targets: ['localhost:9090']
+
+  
+
+- job_name: 'docker'
+
+# metrics_path defaults to '/metrics'
+
+# scheme defaults to 'http'.
+
+  
+
+static_configs:
+
+- targets: ['dockerip:9323']
+
+  
+
+- job_name: 'node-exporter'
+
+  
+
+# Override the global default and scrape targets from this job every 5 seconds.
+
+  
+
+static_configs:
+
+- targets: ['dockerip:9100']
+
+  
+
+- job_name: 'cadvisor'
+
+  
+
+# Override the global default and scrape targets from this job every 5 seconds.
+
+  
+
+static_configs:
+
+- targets: ['dockerip:8080']
+```
+5. We need to configure docker to allow metric communication from docker. follow the steps in this [link](https://docs.docker.com/config/daemon/prometheus/).
+6. Run the following command inside the folder you have docker-compose.yml file. ``docker-compose run -d``.
+7. Open localhost:9090 for prometheus. You should see four targets ( prometheus, node exporter, cadvisor, and docker ).
+8. Open grafana to be able to visualize the data coming from prometheus and the set the data source to prometheus.
+9. You can import dashboards using json file to fully visualize the data. you can import this pre-made dashboard from this [link](https://grafana.com/grafana/dashboards/179).
