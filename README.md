@@ -1204,7 +1204,7 @@ web:
 
 		start_period: 20s
 
-t		imeout: 10s
+		timeout: 10s
 ```
 2. Make sure that your docker-compose.yml file is  on version 3.4 .
 3. check the health status of your container by running ``docker ps `` .
