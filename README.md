@@ -1175,3 +1175,38 @@ static_configs:
 7. Open localhost:9090 for prometheus. You should see four targets ( prometheus, node exporter, cadvisor, and docker ).
 8. Open grafana to be able to visualize the data coming from prometheus and the set the data source to prometheus.
 9. You can import dashboards using json file to fully visualize the data. you can import this pre-made dashboard from this [link](https://grafana.com/grafana/dashboards/179).
+
+
+### Docker Application Health Check
+#### Prerequisite :
+- Make sure you have "curl" installed on your machine. ``sudo apt install curl``
+#### Steps :
+1. Add the following snippet at the end of docker-compose.yml file inside, prometheus folder.
+```
+web:
+
+	image: yaqot/timeappgitworkflow
+
+	container_name: timeapp
+
+	ports:
+
+	- 5000:5000
+	restart: unless-stopped
+
+	healthcheck:
+
+		test: curl --fail http://localhost || exit 1
+
+		interval: 60s
+
+		retries: 5
+
+		start_period: 20s
+
+t		imeout: 10s
+```
+2. Make sure that your docker-compose.yml file is  on version 3.4 .
+3. check the health status of your container by running ``docker ps `` .
+
+
