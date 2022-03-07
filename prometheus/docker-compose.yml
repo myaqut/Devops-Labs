@@ -49,11 +49,26 @@ services:
     container_name: timeapp
     ports:
     - 5000:5000
+    restart: unless-stopped
+
     healthcheck:
       test: curl --fail http://localhost || exit 1
       interval: 60s
       retries: 5
       start_period: 20s
       timeout: 10s
+  loki:
+    image: grafana/loki:2.4.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
 
-
+  promtail:
+    image: grafana/promtail:2.4.1
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
