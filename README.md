@@ -1175,3 +1175,30 @@ static_configs:
 7. Open localhost:9090 for prometheus. You should see four targets ( prometheus, node exporter, cadvisor, and docker ).
 8. Open grafana to be able to visualize the data coming from prometheus and the set the data source to prometheus.
 9. You can import dashboards using json file to fully visualize the data. you can import this pre-made dashboard from this [link](https://grafana.com/grafana/dashboards/179).
+
+
+
+
+# Monitoring: logging Using Promtail, Loki ,and Grafana
+
+In this lab you need to get familiar with a logging stack - Promtail, Loki, Grafana. Then prepare a
+
+docker-composes ﬁle and conﬁg ﬁles to setup the stack.
+
+### Prerequisites : 
+ - Docker, click [here](https://docs.docker.com/engine/install/ubuntu/) for official documentation to install . 
+ - Official documentation [Link](https://grafana.com/go/webinar/loki-getting-started/). 
+
+### Steps : 
+1. Prepare your docker-compose file. your docker-compose file should include the following : 
+	- Grafana : for data visualization.
+	- Loki : for Logging monitoring.
+	- Promtail : The agent Loki uses in order to collect data.
+	- Your app that you need to monitor.
+2. Copy the content from docker-compose file inside monitoring file.
+3.  Copy the configuration file inside /monitoring/loki folder to the following directory on your machine "/etc/loki/"
+4. Copy the configuration file  inside /monitoring/promtail folder to the following directory on your machine "/etc/promtail/"
+5. Note that you need to make sure that you have the right ip address of the docker inside your configuration files
+6. Run docker-compose file using the following command ``docker-compose up``.
+7. Add loki as one of your sources from grafana data sources panel ( check official documentation link above ).
+8. You should be able to view the longings of all of your container and machine resources( check official documentation link above ). 
